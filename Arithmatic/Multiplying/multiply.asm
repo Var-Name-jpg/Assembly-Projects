@@ -5,26 +5,27 @@
 ; Description:
 ;	This program takes two db numbers and multiplies them together
 ;	I still don't really understand the AL, AH, DX, and AX registers
+;	EDIT: I understand the registers now
 
 segment		.text
 	global _start
 
 _start:
 
-	; Store '3' in AL and convert to decimal
-	mov	al,"3"
-	sub	al,"0"
+	; Store '3' in EAX and convert to decimal
+	mov	eax,"3"
+	sub	eax,"0"
 
-	; Store '2' in BL and convert to decimal
-	mov	bl,"2"
-	sub	bl,"0"
+	; Store '2' in EBX and convert to decimal
+	mov	ebx,"2"
+	sub	ebx,"0"
 
-	; Multiply AL by BL
-	mul	bl
-	add	al,"0"
+	; Multiply EBX by EAX
+	mul	eax,ebx
+	add	eax,"0"
 
-	; Move AL into [res]
-	mov  [res],al
+	; Move EAX into [res]
+	mov [res],eax
 
 	; Print the message
 	mov eax,4		; sys_write
