@@ -1,18 +1,26 @@
 .global _start
 
 .hello.str:
-	.ascii "Hello!!!\n"
+	.asciz "Hello!!!\n"
+
+.equ sys_write,1
+.equ stdout,1
+.equ sys_exit,60
 
 .text
 
-_start:
-
-	movq $1, %rax
-	movq $1, %rdi
+_writeHello:
+	movq $sys_write, %rax
+	movq $stdout, %rdi
 	leaq .hello.str, %rsi
-	movq $9, %rdx
+	movq $10, %rdx
 	syscall
 
-	movq $60, %rax
+_exitProgram:
+	movq $sys_exit, %rax
 	movq $0, %rdi
 	syscall
+
+_start:
+	call _writeHello
+	call _exitProgram
